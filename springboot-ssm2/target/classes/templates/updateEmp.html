@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<title>Title</title>
+<style>
+    body{
+        text-align: center;
+        color: #546124;
+    }
+    span{
+        font-size:14px;
+    }
+    table{
+        border-collapse: collapse;
+        width: 80%;
+    }
+    table,td,th{
+        border:1px solid darkmagenta;
+    }
+</style>
+</head>
+<body>
+<span>修改员工</span>
+<form th:action="@{/emp/updateEmp}" th:object="${emp}" method="post"
+      enctype="multipart/form-data">
+    <table align="center">
+        <tr>
+            <td>
+                <input type="hidden" name="eid" value="${emp.eid}">
+            </td>
+            <td>姓名:</td>
+            <td>
+                <input th:type="text" name="ename" value="${emp.ename}">
+            </td>
+        </tr>
+        <tr>
+            <td>薪资</td>
+            <td>
+                <input th:type="number" name="salary" value="${emp.salary}">
+            </td>
+        </tr>
+        <tr>
+            <td>职位:</td>
+            <td>
+                <input th:type="text" name="job" value="${emp.jod}">
+            </td>
+        </tr>
+        <tr>
+            <td>生日:</td>
+            <td>
+                <input th:type="date" name="birthday" value="<fmt:formatDate value="${user.birthday }" pattern="yyyy-MM-dd"/>">
+            </td>
+        </tr>
+        <tr>
+            <td>照片：</td>
+            <td>
+                <img src="/photo/${emp.photo}}" width="100px" height="100px">
+                <input th:type="file" name="file">
+            </td>
+        </tr>
+        <tr>
+            <td>所在部门：</td>
+            <td>
+                <select name="did">
+                    <option>--请选择部门--</option>
+                    <option th:each="dept:${depts}" th:text="${dept.dname}"
+                            th:value="${dept.did}" <th:if test="${emp.did eq dept.did }">selected</th:if>>${dept.dname }></option>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+    <input th:type="submit" value="提交">
+</form>
+</body>
+</html>
